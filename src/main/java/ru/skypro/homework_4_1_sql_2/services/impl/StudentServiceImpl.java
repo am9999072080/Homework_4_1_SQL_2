@@ -4,18 +4,15 @@ package ru.skypro.homework_4_1_sql_2.services.impl;
 import org.springframework.stereotype.Service;
 import ru.skypro.homework_4_1_sql_2.model.Student;
 import ru.skypro.homework_4_1_sql_2.repository.StudentRepository;
-import ru.skypro.homework_4_1_sql_2.repository.StudentsByAge;
-import ru.skypro.homework_4_1_sql_2.repository.StudentsByCategory;
 import ru.skypro.homework_4_1_sql_2.services.StudentService;
 import ru.skypro.homework_4_1_sql_2.exceptions.EntityNotFoundException;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class StudentServiceImpl implements StudentService {
     private StudentRepository repository;
+
 
     public StudentServiceImpl(StudentRepository repository) {
 
@@ -73,20 +70,17 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Integer amountOfStudents() {
-        return repository.getAmountOfStudents().size();
-    }
-
-
-    @Override
-    public List<StudentsByAge> getAverageStudentAge() {
-        return repository.getAverageStudentAge();
-
-
+    public Integer getStudentsCount() {
+        return repository.getCount();
     }
 
     @Override
-    public List<StudentsByCategory> gettingListOfStudents() {
-        return repository.getStudentsByCategory();
+    public Float getStudentsAverageAge() {
+        return repository.getAverageAge();
+    }
+
+    @Override
+    public List<Student> getLastFiveStudents() {
+        return repository.getLastFive();
     }
 }

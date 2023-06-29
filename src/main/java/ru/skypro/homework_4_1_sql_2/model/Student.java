@@ -21,6 +21,10 @@ public class Student {
 
     public Student() {
     }
+    public Student(Integer age) {
+        this.age = age;
+    }
+
 
     public Student(Long id, String name, Integer age, Integer size, Faculty faculty) {
         this.id = id;

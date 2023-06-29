@@ -37,7 +37,7 @@ public class AvatarController {
     }
 
     @GetMapping(value = "/{studentId}/avatar-from-db")
-    @Operation(summary = "Скачивание аватара студента из диска")
+    @Operation(summary = "Скачивание аватара студента с БД")
     public ResponseEntity<byte[]> downloadAvatar(@PathVariable Long studentId) {
         Avatar avatar = avatarService.findAvatar(studentId);
         HttpHeaders headers = new HttpHeaders();
@@ -47,6 +47,7 @@ public class AvatarController {
     }
 
     @GetMapping(value = "/{studentId}/avatar-from-file")
+    @Operation(summary = "Скачивание аватара студента с диска")
     public void downloadAvatar(@PathVariable Long studentId, HttpServletResponse response) throws IOException {
         Avatar avatar = avatarService.findAvatar(studentId);
         Path path = Path.of(avatar.getFilePath());
@@ -59,10 +60,11 @@ public class AvatarController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/page")
+    @Operation(summary = "Получить страницу аватаров")
     public ResponseEntity<List<Avatar>> getAvatar(@RequestParam("page") Integer pageNumber,
                                                   @RequestParam("size") Integer pageSize) {
-        List<Avatar> students = avatarService.getByPageRequest(pageNumber, pageSize);//ПАГИНАЦИЯ: модификация с добавлением pageNumber, pageSize
+        List<Avatar> students = avatarService.getPage(pageNumber, pageSize);
         return ResponseEntity.ok(students);
 
     }
